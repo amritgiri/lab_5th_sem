@@ -3,7 +3,7 @@
 ## Create database bank and show databases
 ```mysql
     ->create database bank;
-	->show databases
+	->show databases;
 ```
 ----------------------
 
