@@ -28,9 +28,9 @@
 ```mysql
 	-> create table branch(
     -> branch_number int not null,
-    -> branch_name varchar(20),
+    -> branch_city varchar(20),
     -> assets varchar(10),
-    -> primary key(branch_number, branch_name));
+    -> primary key(branch_number, branch_city));
 ```
 ---
 ##	CUSTOMER
@@ -46,11 +46,9 @@
 ```mysql
 	-> CREATE TABLE loan (
 	-> loan_number INT NOT NULL,
-	-> branch_number INT NOT NULL,
 	-> branch_name VARCHAR(20),
 	-> amount INT,
-	-> PRIMARY KEY (loan_number),
-	-> CONSTRAINT fk_branch FOREIGN KEY (branch_number, branch_name) REFERENCES branch(branch_number, branch_name));
+	-> PRIMARY KEY (loan_number)
 ```
 ---
 ##	BORROWER
@@ -59,19 +57,17 @@
     -> customer_name varchar(25),
     -> loan_number int,
     -> primary key(customer_name, loan_number),
-    ->constraint fk_cus foreign key(customer_name) references customer(customer_name),
-    ->constraint fk_loan foreign key(loan_number) references loan(loan_number));
+    -> constraint fk_cus foreign key(customer_name) references customer(customer_name),
+    -> constraint fk_loan foreign key(loan_number) references loan(loan_number));
 ```
 ---
 ##	ACCOUNT
 ```mysql
     -> create table account( 
 	-> account_number int not null,
-	-> branch_number int not null,
 	-> branch_name varchar(20) not null,
 	-> balance int,
-	-> primary key(account_number), 
-	-> constraint fk_branch2 foreign key(branch_number,branch_name) references branch(branch_number,branch_name));
+	-> primary key(account_number));
 ```
 ---
 ##	DEPOSITOR
@@ -131,7 +127,7 @@
 ---
 ## Q. Add a NOT NULL constraint in the column “branch_city” of the branch table.
 ```mysql
-	alter table branch modify column branch_name varchar(20) not null;
+	alter table branch modify column branch_city varchar(20) not null;
 ```
 ---
 -------
