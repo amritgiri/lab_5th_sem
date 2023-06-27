@@ -31,7 +31,7 @@
     insert into customer values('Roxane Chalise','Ichchhakamana','Narayanghat');
     insert into customer values('Riva Chalise','Sahid Chowk','Narayanghat');
     insert into customer values('Bhawana Baral','Maharshi Chowk','Dhamauli');
-    insert into customer values('Shyrena Baral','Shukra Path','Biratnagar');
+    insert into customer values('Rishab Khan','Shukra Path','Biratnagar');
     insert into customer values('Robin Jhonson','Bhrikuti Marg','Dharan');
     insert into customer values('Barney Campbell','Sangam Chowk','Hetauda');
     insert into customer values('Charles Robinson','saptagandaki Chowk','Bharatpur');
@@ -39,7 +39,7 @@
     insert into customer values('David Lae','Birendra Path','Hetauda');
     insert into customer values('James Lewis','Sital Mall','Hetauda');
     insert into customer values('Robert Allen','School Road','Hetauda');
-    insert into customer values('Rishab Khan','Hospital Chowk','Pokhara');
+    insert into customer values('Shyrena Baral','Hospital Chowk','Pokhara');
     insert into customer values('Joey Miller','Amarsingh Chowk','Pokhara');
 ```
 ---
