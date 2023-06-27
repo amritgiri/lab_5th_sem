@@ -1,1 +1,1 @@
-# Query are in .md files
+# Queries are in .md files
