@@ -26,58 +26,65 @@
 
 ## BRANCH
 ```mysql
-	-> create table branch(
-    -> branch_number int not null,
-    -> branch_city varchar(20),
-    -> assets varchar(10),
-    -> primary key(branch_number, branch_city));
+	create table branch(
+	branch_number int unique,
+	branch_name varchar(20),
+	branch_city varchar(20),
+	assets varchar(10),
+	primary key(branch_number,branch_name));
 ```
 ---
 ##	CUSTOMER
 ```mysql
-	-> create table customer(
-    -> customer_name varchar(25) not null,
-    -> customer_street varchar(20),
-    -> customer_city varchar(15),
-    -> primary key(customer_name));
+	create table customer(
+	customer_number int unique,
+	customer_name varchar(25),
+	customer_street varchar(20),
+	customer_city varchar(15),
+	primary key(customer_name, customer_number));
 ```
 ---
 ##	LOAN
 ```mysql
-	-> CREATE TABLE loan (
-	-> loan_number INT NOT NULL,
-	-> branch_name VARCHAR(20),
-	-> amount INT,
-	-> PRIMARY KEY (loan_number)
+	CREATE TABLE loan (
+	loan_number bigint unique,
+	branch_number int,
+	branch_name VARCHAR(20),
+	amount int,
+	PRIMARY KEY (loan_number),
+	constraint fk_const foreign key(branch_number,branch_name)references branch(branch_number,branch_name) on delete cascade on update cascade);
 ```
 ---
 ##	BORROWER
 ```mysql
-	-> create table borrower(
-    -> customer_name varchar(25),
-    -> loan_number int,
-    -> primary key(customer_name, loan_number),
-    -> constraint fk_cus foreign key(customer_name) references customer(customer_name),
-    -> constraint fk_loan foreign key(loan_number) references loan(loan_number));
+	create table borrower(
+	customer_name varchar(25),
+	customer_number int,
+	loan_number bigint,
+	constraint fk_const5 foreign key(customer_number) references customer(customer_number) on delete cascade on update cascade,
+	constraint fk_const6 foreign key(customer_name) references customer(customer_name) on delete cascade on update cascade,
+	constraint fk_loan4 foreign key(loan_number) references loan(loan_number)
+	on delete cascade on update cascade);
 ```
 ---
 ##	ACCOUNT
 ```mysql
-    -> create table account( 
-	-> account_number int not null,
-	-> branch_name varchar(20) not null,
-	-> balance int,
-	-> primary key(account_number));
+  	create table account( 
+	account_number int unique,
+	branch_number int,
+	branch_name varchar(20),
+	balance decimal(10,2),
+	primary key(account_number),
+	constraint fk_cons foreign key(branch_number)references branch(branch_number) on delete cascade on update cascade);
 ```
 ---
 ##	DEPOSITOR
 ```mysql
-	-> create table depositor( 
-	-> customer_name varchar(25), 
-	-> account_number int, 
-	-> primary key(customer_name, account_number),
-	-> constraint fk_cus1 foreign key(customer_name) references customer(customer_name),
-	-> constraint fk_acc foreign key(account_number) references account(account_number));
+	create table depositor( 
+	customer_number int not null, 
+	account_number int not null,
+	constraint fk_customer foreign key(customer_number)references customer(customer_number) on delete cascade on update cascade,
+	constraint fk_acc foreign key(account_number) references account(account_number)on delete cascade on update cascade);
 ```
 -----
 --------
