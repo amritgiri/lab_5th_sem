@@ -1,8 +1,13 @@
 # Lab 3, 4 And 5
+
 ---
+
 ## Q. Insert at least 10 records in branch,customer, account, loan, borrower and depositor relations.
-----
+
+---
+
 ## BRANCH
+
 ```mysql
 insert into branch values(6345,'Shivam Tol','Kathmandu',5000000);
 insert into branch values(6344,'Bagmara Marg','Kathmandu',4500000);
@@ -27,9 +32,11 @@ insert into branch values(4324,'Sital Mall','Hetauda',1010000);
 insert into branch values(2325,'Amarsingh Chowk','Pokhara',1200000);
 insert into branch values(4343,'Hospital Chowk','Pokhara',1209900);
 ```
-----
+
+---
 
 ## CUSTOMER
+
 ```mysql
 insert into customer values(1,'Shyam Sharma','Shivam Tol','Kathmandu');
 insert into customer values(2,'Hari Parsad Baral','Bagmara Marg','Kathmandu');
@@ -55,8 +62,11 @@ insert into customer values(21,'Rishab Khan','Hospital Chowk','Pokhara');
 insert into customer values(22,'Joey Miller','Amarsingh Chowk','Pokhara');
 
 ```
+
 ---
+
 ## ACCOUNT
+
 ```mysql
 insert into account values(01012305478,6345,'Shivam Tol',20000);
 insert into account values(01212305468,6344,'Bagmara marg',25000);
@@ -87,8 +97,11 @@ insert into account values(00112404217,3425,'Ram Chowk',345000);
 insert into account values(00112404317,2435,'Kupandol',345000);
 
 ```
+
 ---
+
 ## LOAN
+
 ```mysql
 insert into loan values(05674321567,4345,'Sangam Chowk',100000);
 insert into loan values(76528612384,4345,'Sangam Chowk',20000);
@@ -113,8 +126,11 @@ insert into loan values(18273497653,8145,'Tinkune',1005000);
 insert into loan values(23475628222,6325,'Baneshwor',140000);
 insert into loan values(53487618722,2345,'Saptagandaki Chowk',870000);
 ```
+
 ---
+
 ## BORROWER
+
 ```mysql
 insert into borrower values('Aagman Poudel',8, 18273497653);
 insert into borrower values('Barney Campbell',15, 05674321567);
@@ -139,8 +155,11 @@ insert into borrower values('Ted Wilson',6, 12012404280);
 insert into borrower values('Thomas Cooper',17, 23763499521);
 insert into borrower values('Wyane Rooney',4, 12359612875);
 ```
+
 ---
+
 ## DEPOSITOR
+
 ```mysql
 insert into depositor values(8,112404863);
 insert into depositor values(15,1012404500);
@@ -165,5 +184,47 @@ insert into depositor values(6,1012305481);
 insert into depositor values(17,112404217);
 insert into depositor values(4,1012104586);
 ```
+
 ---
+
+---
+
+## Q. Display all the records
+
+```mysql
+select * from branch;
+```
+
+---
+
+```mysql
+select * from customer;
+```
+
+---
+
+```mysql
+select * from loan;
+```
+
+---
+
+```mysql
+select * from borrower;
+```
+
+---
+
+```mysql
+select * from account;
+```
+
+---
+
+```mysql
+select * from depositor;
+```
+
+---
+
 ---
