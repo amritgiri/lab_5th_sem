@@ -49,20 +49,17 @@
 	CREATE TABLE loan (
 	loan_number bigint unique,
 	branch_number int,
-	branch_name VARCHAR(20),
 	amount int,
 	PRIMARY KEY (loan_number),
-	constraint fk_const foreign key(branch_number,branch_name)references branch(branch_number,branch_name) on delete cascade on update cascade);
+	constraint fk_const foreign key(branch_number)references branch(branch_number) on delete cascade on update cascade);
 ```
 ---
 ##	BORROWER
 ```mysql
 	create table borrower(
-	customer_name varchar(25),
 	customer_number int,
 	loan_number bigint,
 	constraint fk_const5 foreign key(customer_number) references customer(customer_number) on delete cascade on update cascade,
-	constraint fk_const6 foreign key(customer_name) references customer(customer_name) on delete cascade on update cascade,
 	constraint fk_loan4 foreign key(loan_number) references loan(loan_number)
 	on delete cascade on update cascade);
 ```
@@ -72,7 +69,6 @@
   	create table account( 
 	account_number int unique,
 	branch_number int,
-	branch_name varchar(20),
 	balance decimal(10,2),
 	primary key(account_number),
 	constraint fk_cons foreign key(branch_number)references branch(branch_number) on delete cascade on update cascade);
