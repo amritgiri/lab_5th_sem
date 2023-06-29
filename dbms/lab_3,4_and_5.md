@@ -134,28 +134,28 @@ insert into loan values(53487618722,2345,870000);
 ## BORROWER
 
 ```mysql
-insert into borrower values('8, 18273497653);
-insert into borrower values('15, 05674321567);
-insert into borrower values('12, 62348762342);
-insert into borrower values('16, 53487618722);
-insert into borrower values('18, 76528612384);
-insert into borrower values('2, 23487699172);
-insert into borrower values('19, 82539451438);
-insert into borrower values('3, 23475628222);
-insert into borrower values('22, 09862343172);
-insert into borrower values('7, 67523849211);
-insert into borrower values('21, 32487691465);
-insert into borrower values('11, 76342625333);
-insert into borrower values('20, 02934699255);
-insert into borrower values('14, 92734755222);
-insert into borrower values('5, 10192357333);
-insert into borrower values('10, 76342625343);
-insert into borrower values('9, 79263994636);
-insert into borrower values('1, 23487652982);
-insert into borrower values('13, 92348769444);
-insert into borrower values('6, 12012404280);
-insert into borrower values('17, 23763499521);
-insert into borrower values('4, 12359612875);
+insert into borrower values(8, 18273497653);
+insert into borrower values(15, 05674321567);
+insert into borrower values(12, 62348762342);
+insert into borrower values(16, 53487618722);
+insert into borrower values(18, 76528612384);
+insert into borrower values(2, 23487699172);
+insert into borrower values(19, 82539451438);
+insert into borrower values(3, 23475628222);
+insert into borrower values(22, 09862343172);
+insert into borrower values(7, 67523849211);
+insert into borrower values(21, 32487691465);
+insert into borrower values(11, 76342625333);
+insert into borrower values(20, 02934699255);
+insert into borrower values(14, 92734755222);
+insert into borrower values(5, 10192357333);
+insert into borrower values(10, 76342625343);
+insert into borrower values(9, 79263994636);
+insert into borrower values(1, 23487652982);
+insert into borrower values(13, 92348769444);
+insert into borrower values(6, 12012404280);
+insert into borrower values(17, 23763499521);
+insert into borrower values(4, 12359612875);
 ```
 
 ---
@@ -344,3 +344,159 @@ select * from depositor;
 ---
 ---
 ## Q. Find the largest account balance in the bank [with or without aggregate function].
+```mysql
+	select balance from account order by desc limit 1;
+	select max(balance) from account;
+```
+---
+---
+## Q. Find the names of all customers who have an account in Tinkune branch or Baneshwor branch, or both.
+```mysql
+	(select c.customer_name from customer as c,branch as b,borrower as br,loan as l where c.customer_number=br.customer_number and br.loan_number = l.loan_number and l.branch_number=b.branch_number and b.branch_name='Tinkune') union (select c.customer_name from customer as c,branch as b,borrower as br,loan as l where c.customer_number=br.customer_number and br.loan_number = l.loan_number and l.branch_number=b.branch_number and b.branch_name='Baneshwor');
+```
+---
+---
+## Q. Find the average account balance at the Tinkune branch.
+```mysql
+	select a.account_number, a.balance,b.branch_name from account as a, branch as b where a.branch_number=b.branch_number and b.branch_name='Tinkune';
+```
+---
+---
+## Q. Find the number of tuples in the customer relation.
+```mysql
+	select count(*) from customer;
+```
+---
+---
+## Q. Find the average account balance at each branch.
+```mysql
+	select avg(a.balance),b.branch_name from account as a, branch as b where a.branch_number = b.branch_number group by b.branch_name;
+```
+---
+---
+## Q. Find the number of depositors for each branch.
+```mysql
+	
+```
+---
+---
+## Q. Find the name of branches where the average account balance is more than 12,00,000.
+```mysql
+```
+---
+---
+## Q. Find the average balance for all account.
+```mysql
+```
+---
+---
+## Q. Find the average balance for each customer who lives in Pokhara and has at least three accounts.
+```mysql
+```
+---
+---
+## Q. Find all customers who have both an account and a loan at the Tinkune branch. [ use set membership]
+```mysql
+```
+---
+---
+## Q. Find all customers who do have a loan at the bank, but do not have an account at the bank. [ use set membership]
+```mysql
+```
+---
+---
+## Q. Find out the total balance of the bank.
+```mysql
+```
+---
+---
+## Q. Find the number of branches appearing in the account relation.
+```mysql
+```
+---
+---
+## Q. Find the total balance of each branch of the bank.
+```mysql
+```
+---
+---
+## Q. Find the maximum balance at each branch and sum of the balance of each branch. Rename your output attributes.
+```mysql
+```
+---
+---
+## Q. List the names of customers who have a loan at the bank, and whose names are neither Shyam nor Hari.
+```mysql
+```
+---
+---
+## Q. Find the name of all branches that have assets greater than those of at least one branch located in Baneshwor. [with or without using Set Comparison]
+```mysql
+```
+---
+---
+## Q. Find the names of all branches that have an asset value greater than that of each branch in Baneshwor.
+```mysql
+```
+---
+---
+## Q. Delete all account tuples in the Tinkune branch.
+```mysql
+```
+---
+---
+## Q. Delete all loans with loan amounts between 13000 and 150000.
+```mysql
+```
+---
+---
+## Q. Delete all account tuples at every branch located in Baneshwor.
+```mysql
+```
+---
+---
+## Q. Delete the records of all accounts with balances below the average at the bank.
+```mysql
+```
+---
+---
+## Q. Increase all balance by 5 percent.
+```mysql
+```
+---
+---
+## Q. Increase balance only to accounts with a balance of 10000 or more by 5 percent.
+```mysql
+```
+---
+---
+## Q. Pay 5 percent interest on accounts whose balance is greater than average.
+```mysql
+```
+---
+---
+## Q. Update all accounts with balances over 10,00,000 receive 6 percent interest, whereas all others receive 5 percent.
+```mysql
+```
+---
+---
+## Q. Create a view called all_customer consisting of branches and their customer’s name.
+```mysql
+```
+---
+---
+## Q. List the records of view all_customer.
+```mysql
+```
+---
+---
+## Q. Drop all_customer view.
+```mysql
+```
+---
+---
+## Q. Perform the Join operation (Natural join, Left join, Right join, and Full join) in the tables account and customer tables.
+```mysql
+
+```
+---
