@@ -60,6 +60,8 @@ insert into customer values(19,'James Lewis','Sital Mall','Hetauda');
 insert into customer values(20,'Robert Allen','School Road','Hetauda');
 insert into customer values(21,'Rishab Khan','Hospital Chowk','Pokhara');
 insert into customer values(22,'Joey Miller','Amarsingh Chowk','Pokhara');
+insert into customer values(23,'Joy Miller','main road','Pokhara');
+insert into customer values(24,'Burno Cordoba','New road','Pokhara');
 
 ```
 
@@ -228,3 +230,117 @@ select * from depositor;
 ---
 
 ---
+## Q.Display top 5 records of depositor relation
+```mysql
+	select * from depositor limit 5;
+```
+---
+---
+## Q. Find the names of all branches in the loan relation (with or without duplicates).
+```mysql
+    select branch_number,branch_name from loan;
+	select distinct branch_number,branch_name from loan;
+```
+---
+---
+## Q. Find all loan numbers for loans made at the Tinkune branch with loan amounts greater than 200000.
+```mysql
+	select loan_number, branch_number, branch_name from loan where branch_name='Tinkune' and amount>200000;
+```
+---
+---
+## Q. Find the loan number of those loans with loan amounts between 9,00,000 and 10,00,000.
+```mysql
+	select loan_number,amount from loan where amount between 900000 and 1000000;
+```
+---
+---
+## Q. For all customers who have a loan from the bank, find their names, loan numbers, and loan amount.
+```mysql
+	select c.customer_name, l.loan_number, l.amount from loan as l, customer as c , borrower as b where b.loan_number=l.loan_number and c.customer_number=b.customer_number;
+
+```
+---
+---
+## Q. Find the customer names, loan numbers, and loan amounts for all loans at the Tinkune branch.
+```mysql
+
+	select c.customer_name,l.loan_number,l.amount 
+	from loan as l,customer as c, borrower as b, branch as bh
+	where l.loan_number=b.loan_number and c.customer_number=b.customer_number and l.branch_number=bh.branch_number and bh.branch_name='Tinkune';
+	
+```
+---
+---
+## Q. Find the names of all branches that have assets greater than at least one branch located in Baneshwor.
+```mysql
+    select branch_name,assets from branch where assets > some (select assets from branch where branch_name='Baneshwor');
+```
+---
+---
+## Q. Find the names of all customers whose street address includes the substring 'main'.
+```mysql
+    select customer_name from customer where customer_street like '%main%';
+```
+---
+---
+## Q. Find the names of all customers whose name contains at least four characters.
+```mysql
+	select customer_name from customer where customer_name like '____%';
+```
+---
+---
+## Q. Find the names of all customers whose name start with ‘b’ and end with ‘a’.
+```mysql
+    select customer_name from customer where customer_name like 'b%a';
+```
+---
+---
+## Q. List all the customer’s name in alphabetic order who have a loan at the Tinkune branch.
+```mysql
+	select c.customer_name, b.branch_name from customer as c, branch as b, loan as l, borrower as br where c.customer_number=br.customer_number and br.loan_number=l.loan_number and l.branch_number=b.branch_number and b.branch_name='Tinkune' order by c.customer_name;
+```
+---
+---
+## Q. List the entire loan relation in descending order of amount. If several loans have the same amount, then order them in ascending order by loan number.
+```mysql
+	select * from loan order by amount desc, loan_number asc;
+```
+---
+---
+## Q. Find all the bank customers having a loan, an account, or both at the bank (with or without duplicates).
+###	without dup
+```mysql
+    (select c.customer_name from customer as c, loan as l ,borrower as b where c.customer_number=b.customer_number and b.loan_number=l.loan_number)union(select c.customer_name from customer as c, account as a, depositor as d where c.customer_number=d.customer_number and d.account_number=a.account_number)
+```
+---
+---
+### with dup
+```mysql
+    (select c.customer_name from customer as c, loan as l ,borrower as b where c.customer_number=b.customer_number and b.loan_number=l.loan_number)union all(select c.customer_name from customer as c, account as a, depositor as d where c.customer_number=d.customer_number and d.account_number=a.account_number)
+```
+---
+---
+## Q. Find all customers who have both a loan and an account at the bank (with or without duplicates).
+### without dup
+```mysql
+	(select c.customer_name from customer as c, loan as l ,borrower as b where c.customer_number=b.customer_number and b.loan_number=l.loan_number) intersect (select c.customer_name from customer as c, account as a, depositor as d where c.customer_number=d.customer_number and d.account_number=a.account_number);
+```
+### with dup
+```mysql
+	(select c.customer_name from customer as c, loan as l ,borrower as b where c.customer_number=b.customer_number and b.loan_number=l.loan_number) intersect all(select c.customer_name from customer as c, account as a, depositor as d where c.customer_number=d.customer_number and d.account_number=a.account_number);
+```
+---
+---
+## Q. Find all customers who have an account but no loan at the bank (with or without duplicates).
+### without dup
+```mysql
+	(select c.customer_name from customer as c, depositor as d, account as a where c.customer_number=d.customer_number and d.account_number=a.account_number) except(select cu.customer_name from customer as cu, loan as l, borrower as br where cu.customer_number=br.customer_number and br.loan_number=l.loan_number);
+```
+###	with dup
+```mysql
+	(select c.customer_name from customer as c, depositor as d, account as a where c.customer_number=d.customer_number and d.account_number=a.account_number) except all(select cu.customer_name from customer as cu, loan as l, borrower as br where cu.customer_number=br.customer_number and br.loan_number=l.loan_number);
+```
+---
+---
+## Q. Find the largest account balance in the bank [with or without aggregate function].
