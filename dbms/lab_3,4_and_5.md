@@ -110,7 +110,7 @@ insert into loan values(76528612384,4345,20000);
 insert into loan values(10192357333,2430,200000);
 insert into loan values(12012404280,8145,500000);
 insert into loan values(79263994636,4343,65000);
-insert into loan values(23763499521,'8145,70000);
+insert into loan values(23763499521,8145,70000);
 insert into loan values(82539451438,4324,400000);
 insert into loan values(92734755222,2537,230000);
 insert into loan values(09862343172,8344,105000);
@@ -376,32 +376,37 @@ select * from depositor;
 ---
 ## Q. Find the number of depositors for each branch.
 ```mysql
-	
+	select count(customer_number),b.branch_name,b.branch_number from depositor as d, branch as b, account as a where a.account_number=d.account_number and a.branch_number = b.branch_number group by branch_name;
 ```
 ---
 ---
 ## Q. Find the name of branches where the average account balance is more than 12,00,000.
 ```mysql
+	select avg(balance), b.branch_name from account as a, branch as b where b.branch_number=a.branch_number and a.balance>1200000;
 ```
 ---
 ---
 ## Q. Find the average balance for all account.
 ```mysql
+	select avg(balance) from account group by account_number;
 ```
 ---
 ---
 ## Q. Find the average balance for each customer who lives in Pokhara and has at least three accounts.
 ```mysql
+	select avg(a.balance), b.branch_city from account as a, branch as b, customer as c, depositor as d where a.branch_number=b.branch_number and a.account_number=d.account_number and d.customer_number = c.customer_number and c.customer_city = 'Pokhara';
 ```
 ---
 ---
 ## Q. Find all customers who have both an account and a loan at the Tinkune branch. [ use set membership]
 ```mysql
+	select distinct c.customer_name from customer as c, branch as b where c.customer_name in(select customer_name from customer as c, branch as b, loan as l, account as a, borrower as br , depositor as d where b.branch_name = 'Tinkune' and a.branch_number=b.branch_number and a.account_number=d.account_number and d.customer_number=c.customer_number and br.loan_number=l.loan_number and br.customer_number = c.customer_number);
 ```
 ---
 ---
 ## Q. Find all customers who do have a loan at the bank, but do not have an account at the bank. [ use set membership]
 ```mysql
+
 ```
 ---
 ---
