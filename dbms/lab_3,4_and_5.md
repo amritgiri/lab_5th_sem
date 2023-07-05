@@ -245,7 +245,7 @@ select * from depositor;
 ---
 ## Q. Find all loan numbers for loans made at the Tinkune branch with loan amounts greater than 200000.
 ```mysql
-	select loan_number, branch_number, branch_name from loan where branch_name='Tinkune' and amount>200000;
+	select loan_number, l.branch_number, b.branch_name from loan as l,branch as b where l.branch_number=b.branch_number and b.branch_name='Tinkune' and amount>200000;
 ```
 ---
 ---
