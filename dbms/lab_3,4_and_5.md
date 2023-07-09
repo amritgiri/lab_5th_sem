@@ -2,7 +2,7 @@
 
 ---
 
-## Q. Insert at least 10 records in branch,customer, account, loan, borrower and depositor relations.
+## Q 1. Insert at least 10 records in branch,customer, account, loan, borrower and depositor relations.
 
 ---
 
@@ -191,7 +191,7 @@ insert into depositor values(4,1012104586);
 
 ---
 
-## Q. Display all the records
+## Q 2,3,4,5,6. Display all the records
 
 ```mysql
 select * from branch;
@@ -230,39 +230,39 @@ select * from depositor;
 ---
 
 ---
-## Q.Display top 5 records of depositor relation
+## Q 7.Display top 5 records of depositor relation
 ```mysql
 	select * from depositor limit 5;
 ```
 ---
 ---
-## Q. Find the names of all branches in the loan relation (with or without duplicates).
+## Q 8. Find the names of all branches in the loan relation (with or without duplicates).
 ```mysql
     select branch_number,branch_name from loan;
 	select distinct branch_number,branch_name from loan;
 ```
 ---
 ---
-## Q. Find all loan numbers for loans made at the Tinkune branch with loan amounts greater than 200000.
+## Q 9. Find all loan numbers for loans made at the Tinkune branch with loan amounts greater than 200000.
 ```mysql
 	select loan_number, l.branch_number, b.branch_name from loan as l,branch as b where l.branch_number=b.branch_number and b.branch_name='Tinkune' and amount>200000;
 ```
 ---
 ---
-## Q. Find the loan number of those loans with loan amounts between 9,00,000 and 10,00,000.
+## Q 10. Find the loan number of those loans with loan amounts between 9,00,000 and 10,00,000.
 ```mysql
 	select loan_number,amount from loan where amount between 900000 and 1000000;
 ```
 ---
 ---
-## Q. For all customers who have a loan from the bank, find their names, loan numbers, and loan amount.
+## Q 11. For all customers who have a loan from the bank, find their names, loan numbers, and loan amount.
 ```mysql
 	select c.customer_name, l.loan_number, l.amount from loan as l, customer as c , borrower as b where b.loan_number=l.loan_number and c.customer_number=b.customer_number;
 
 ```
 ---
 ---
-## Q. Find the customer names, loan numbers, and loan amounts for all loans at the Tinkune branch.
+## Q 12. Find the customer names, loan numbers, and loan amounts for all loans at the Tinkune branch.
 ```mysql
 
 	select c.customer_name,l.loan_number,l.amount 
@@ -272,43 +272,43 @@ select * from depositor;
 ```
 ---
 ---
-## Q. Find the names of all branches that have assets greater than at least one branch located in Baneshwor.
+## Q 13. Find the names of all branches that have assets greater than at least one branch located in Baneshwor.
 ```mysql
     select branch_name,assets from branch where assets > some (select assets from branch where branch_name='Baneshwor');
 ```
 ---
 ---
-## Q. Find the names of all customers whose street address includes the substring 'main'.
+## Q 14. Find the names of all customers whose street address includes the substring 'main'.
 ```mysql
     select customer_name from customer where customer_street like '%main%';
 ```
 ---
 ---
-## Q. Find the names of all customers whose name contains at least four characters.
+## Q 15. Find the names of all customers whose name contains at least four characters.
 ```mysql
 	select customer_name from customer where customer_name like '____%';
 ```
 ---
 ---
-## Q. Find the names of all customers whose name start with ‘b’ and end with ‘a’.
+## Q 16. Find the names of all customers whose name start with ‘b’ and end with ‘a’.
 ```mysql
     select customer_name from customer where customer_name like 'b%a';
 ```
 ---
 ---
-## Q. List all the customer’s name in alphabetic order who have a loan at the Tinkune branch.
+## Q 17. List all the customer’s name in alphabetic order who have a loan at the Tinkune branch.
 ```mysql
 	select c.customer_name, b.branch_name from customer as c, branch as b, loan as l, borrower as br where c.customer_number=br.customer_number and br.loan_number=l.loan_number and l.branch_number=b.branch_number and b.branch_name='Tinkune' order by c.customer_name;
 ```
 ---
 ---
-## Q. List the entire loan relation in descending order of amount. If several loans have the same amount, then order them in ascending order by loan number.
+## Q 18. List the entire loan relation in descending order of amount. If several loans have the same amount, then order them in ascending order by loan number.
 ```mysql
 	select * from loan order by amount desc, loan_number asc;
 ```
 ---
 ---
-## Q. Find all the bank customers having a loan, an account, or both at the bank (with or without duplicates).
+## Q 19. Find all the bank customers having a loan, an account, or both at the bank (with or without duplicates).
 ###	without dup
 ```mysql
     (select c.customer_name from customer as c, loan as l ,borrower as b where c.customer_number=b.customer_number and b.loan_number=l.loan_number)union(select c.customer_name from customer as c, account as a, depositor as d where c.customer_number=d.customer_number and d.account_number=a.account_number)
@@ -321,7 +321,7 @@ select * from depositor;
 ```
 ---
 ---
-## Q. Find all customers who have both a loan and an account at the bank (with or without duplicates).
+## Q 20. Find all customers who have both a loan and an account at the bank (with or without duplicates).
 ### without dup
 ```mysql
 	(select c.customer_name from customer as c, loan as l ,borrower as b where c.customer_number=b.customer_number and b.loan_number=l.loan_number) intersect (select c.customer_name from customer as c, account as a, depositor as d where c.customer_number=d.customer_number and d.account_number=a.account_number);
@@ -332,7 +332,7 @@ select * from depositor;
 ```
 ---
 ---
-## Q. Find all customers who have an account but no loan at the bank (with or without duplicates).
+## Q 21. Find all customers who have an account but no loan at the bank (with or without duplicates).
 ### without dup
 ```mysql
 	(select c.customer_name from customer as c, depositor as d, account as a where c.customer_number=d.customer_number and d.account_number=a.account_number) except(select cu.customer_name from customer as cu, loan as l, borrower as br where cu.customer_number=br.customer_number and br.loan_number=l.loan_number);
@@ -343,164 +343,170 @@ select * from depositor;
 ```
 ---
 ---
-## Q. Find the largest account balance in the bank [with or without aggregate function].
+## Q 22. Find the largest account balance in the bank [with or without aggregate function].
 ```mysql
 	select balance from account order by desc limit 1;
 	select max(balance) from account;
 ```
 ---
 ---
-## Q. Find the names of all customers who have an account in Tinkune branch or Baneshwor branch, or both.
+## Q 23. Find the names of all customers who have an account in Tinkune branch or Baneshwor branch, or both.
 ```mysql
 	(select c.customer_name from customer as c,branch as b,borrower as br,loan as l where c.customer_number=br.customer_number and br.loan_number = l.loan_number and l.branch_number=b.branch_number and b.branch_name='Tinkune') union (select c.customer_name from customer as c,branch as b,borrower as br,loan as l where c.customer_number=br.customer_number and br.loan_number = l.loan_number and l.branch_number=b.branch_number and b.branch_name='Baneshwor');
 ```
 ---
 ---
-## Q. Find the average account balance at the Tinkune branch.
+## Q 24. Find the average account balance at the Tinkune branch.
 ```mysql
 	select a.account_number, a.balance,b.branch_name from account as a, branch as b where a.branch_number=b.branch_number and b.branch_name='Tinkune';
 ```
 ---
 ---
-## Q. Find the number of tuples in the customer relation.
+## Q 25. Find the number of tuples in the customer relation.
 ```mysql
 	select count(*) from customer;
 ```
 ---
 ---
-## Q. Find the average account balance at each branch.
+## Q 26. Find the average account balance at each branch.
 ```mysql
 	select avg(a.balance),b.branch_name from account as a, branch as b where a.branch_number = b.branch_number group by b.branch_name;
 ```
 ---
 ---
-## Q. Find the number of depositors for each branch.
+## Q 27. Find the number of depositors for each branch.
 ```mysql
 	select count(customer_number),b.branch_name,b.branch_number from depositor as d, branch as b, account as a where a.account_number=d.account_number and a.branch_number = b.branch_number group by branch_name;
 ```
 ---
 ---
-## Q. Find the name of branches where the average account balance is more than 12,00,000.
+## Q 28. Find the name of branches where the average account balance is more than 12,00,000.
 ```mysql
 	select avg(balance), b.branch_name from account as a, branch as b where b.branch_number=a.branch_number and a.balance>1200000;
 ```
 ---
 ---
-## Q. Find the average balance for all account.
+## Q 29. Find the average balance for all account.
 ```mysql
 	select avg(balance) from account group by account_number;
 ```
 ---
 ---
-## Q. Find the average balance for each customer who lives in Pokhara and has at least three accounts.
+## Q 30. Find the average balance for each customer who lives in Pokhara and has at least three accounts.
 ```mysql
 	select avg(a.balance), b.branch_city from account as a, branch as b, customer as c, depositor as d where a.branch_number=b.branch_number and a.account_number=d.account_number and d.customer_number = c.customer_number and c.customer_city = 'Pokhara';
 ```
 ---
 ---
-## Q. Find all customers who have both an account and a loan at the Tinkune branch. [ use set membership]
+## Q 31. Find all customers who have both an account and a loan at the Tinkune branch. [ use set membership]
 ```mysql
 	select distinct c.customer_name from customer as c, branch as b where c.customer_name in(select customer_name from customer as c, branch as b, loan as l, account as a, borrower as br , depositor as d where b.branch_name = 'Tinkune' and a.branch_number=b.branch_number and a.account_number=d.account_number and d.customer_number=c.customer_number and br.loan_number=l.loan_number and br.customer_number = c.customer_number);
 ```
 ---
 ---
-## Q. Find all customers who do have a loan at the bank, but do not have an account at the bank. [ use set membership]
+## Q 32. Find all customers who do have a loan at the bank, but do not have an account at the bank. [ use set membership]
 ```mysql
+	select distinct c.customer_name from customer as c, branch as b where c.customer_name in(select customer_name from customer as c, loan as l, account as a, borrower as br, depositor as d where ); 
+```
+---
+---
+## Q 33. Find out the total balance of the bank.
+```mysql
+	select balance, b.branch_name  from account as a, branch as b where a.branch_number=b.branch_number;
+```
+---
+---
+## Q 34. Find the number of branches appearing in the account relation.
+```mysql
+	select count(distinct branch_number) as count from account;
+```
+---
+---
+## Q 35. Find the total balance of each branch of the bank.
+```mysql
+	select balance, b.branch_name  from account as a, branch as b where a.branch_number=b.branch_number group by b.branch_name;
+```
+---
+---
+## Q 36. Find the maximum balance at each branch and sum of the balance of each branch. Rename your output attributes.
+```mysql
+	select max(a.balance) as max_balance, sum(a.balance),a.branch_number as sum_balance from account as a group by a.branch_number;
+```
+---
+---
+## Q 37. List the names of customers who have a loan at the bank, and whose names are neither Shyam nor Hari.
+```mysql
+	select c.customer_name,l.loan_number from customer as c, loan as l, borrower as b where c.customer_number=b.customer_number and b.loan_number=l.loan_number and c.customer_name<>'Shyam' and c.customer_name<>'Hari';
 
 ```
 ---
 ---
-## Q. Find out the total balance of the bank.
+## Q 38. Find the name of all branches that have assets greater than those of at least one branch located in Baneshwor. [with or without using Set Comparison]
 ```mysql
 ```
 ---
 ---
-## Q. Find the number of branches appearing in the account relation.
+## Q 39. Find the names of all branches that have an asset value greater than that of each branch in Baneshwor.
 ```mysql
 ```
 ---
 ---
-## Q. Find the total balance of each branch of the bank.
+## Q 40. Delete all account tuples in the Tinkune branch.
 ```mysql
 ```
 ---
 ---
-## Q. Find the maximum balance at each branch and sum of the balance of each branch. Rename your output attributes.
+## Q 41. Delete all loans with loan amounts between 13000 and 150000.
 ```mysql
 ```
 ---
 ---
-## Q. List the names of customers who have a loan at the bank, and whose names are neither Shyam nor Hari.
+## Q 42. Delete all account tuples at every branch located in Baneshwor.
 ```mysql
 ```
 ---
 ---
-## Q. Find the name of all branches that have assets greater than those of at least one branch located in Baneshwor. [with or without using Set Comparison]
+## Q 43. Delete the records of all accounts with balances below the average at the bank.
 ```mysql
 ```
 ---
 ---
-## Q. Find the names of all branches that have an asset value greater than that of each branch in Baneshwor.
+## Q 44. Increase all balance by 5 percent.
 ```mysql
 ```
 ---
 ---
-## Q. Delete all account tuples in the Tinkune branch.
+## Q 45. Increase balance only to accounts with a balance of 10000 or more by 5 percent.
 ```mysql
 ```
 ---
 ---
-## Q. Delete all loans with loan amounts between 13000 and 150000.
+## Q 46. Pay 5 percent interest on accounts whose balance is greater than average.
 ```mysql
 ```
 ---
 ---
-## Q. Delete all account tuples at every branch located in Baneshwor.
+## Q 47. Update all accounts with balances over 10,00,000 receive 6 percent interest, whereas all others receive 5 percent.
 ```mysql
 ```
 ---
 ---
-## Q. Delete the records of all accounts with balances below the average at the bank.
+## Q 48. Create a view called all_customer consisting of branches and their customer’s name.
 ```mysql
 ```
 ---
 ---
-## Q. Increase all balance by 5 percent.
+## Q 49. List the records of view all_customer.
 ```mysql
 ```
 ---
 ---
-## Q. Increase balance only to accounts with a balance of 10000 or more by 5 percent.
+## Q 50. Drop all_customer view.
 ```mysql
 ```
 ---
 ---
-## Q. Pay 5 percent interest on accounts whose balance is greater than average.
-```mysql
-```
----
----
-## Q. Update all accounts with balances over 10,00,000 receive 6 percent interest, whereas all others receive 5 percent.
-```mysql
-```
----
----
-## Q. Create a view called all_customer consisting of branches and their customer’s name.
-```mysql
-```
----
----
-## Q. List the records of view all_customer.
-```mysql
-```
----
----
-## Q. Drop all_customer view.
-```mysql
-```
----
----
-## Q. Perform the Join operation (Natural join, Left join, Right join, and Full join) in the tables account and customer tables.
+## Q 51. Perform the Join operation (Natural join, Left join, Right join, and Full join) in the tables account and customer tables.
 ```mysql
 
 ```
