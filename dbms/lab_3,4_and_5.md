@@ -549,7 +549,7 @@ select * from depositor;
 ```mysql
 	select * from account full join depositor on account.account_number=depositor.account_number full join customer on depositor.customer_number=customer.customer_number;
 ```
-OR
+### "One that doesnot support full join"
 ```mysql
 	(select * from account left join depositor on account.account_number=depositor.account_number left join customer on depositor.customer_number=customer.customer_number) union (select * from account right join depositor on account.account_number=depositor.account_number right join customer on depositor.customer_number=customer.customer_number);
 ```
