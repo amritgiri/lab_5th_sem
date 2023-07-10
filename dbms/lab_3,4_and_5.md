@@ -436,73 +436,90 @@ select * from depositor;
 ---
 ## Q 37. List the names of customers who have a loan at the bank, and whose names are neither Shyam nor Hari.
 ```mysql
-	select c.customer_name,l.loan_number from customer as c, loan as l, borrower as b where c.customer_number=b.customer_number and b.loan_number=l.loan_number and c.customer_name<>'Shyam' and c.customer_name<>'Hari';
+	select c.customer_name,l.loan_number from customer as c, loan as l, borrower as b where c.customer_number=b.customer_number and b.loan_number=l.loan_number and c.customer_name not in('Aagman Poudel','Ross Smith');
 
 ```
 ---
 ---
 ## Q 38. Find the name of all branches that have assets greater than those of at least one branch located in Baneshwor. [with or without using Set Comparison]
 ```mysql
+	select branch_name,assets from branch where assets >some (select assets from branch where branch_name = 'Baneshwor');
+
 ```
 ---
 ---
 ## Q 39. Find the names of all branches that have an asset value greater than that of each branch in Baneshwor.
 ```mysql
+	select branch_name,assets from branch where assets >all (select assets from branch where branch_name = 'Baneshwor');
+
 ```
 ---
 ---
 ## Q 40. Delete all account tuples in the Tinkune branch.
 ```mysql
+	delete from account where branch_number in(select branch_number from branch where branch_name='Tinkune');
 ```
 ---
 ---
 ## Q 41. Delete all loans with loan amounts between 13000 and 150000.
 ```mysql
+	delete from loan where amount between 13000 and 150000;
+
 ```
 ---
 ---
 ## Q 42. Delete all account tuples at every branch located in Baneshwor.
 ```mysql
+	delete from account where branch_number in(select branch_number from branch where branch_name = 'Baneshwor');
+
 ```
 ---
 ---
 ## Q 43. Delete the records of all accounts with balances below the average at the bank.
 ```mysql
+
 ```
 ---
 ---
 ## Q 44. Increase all balance by 5 percent.
 ```mysql
+
 ```
 ---
 ---
 ## Q 45. Increase balance only to accounts with a balance of 10000 or more by 5 percent.
 ```mysql
+
 ```
 ---
 ---
 ## Q 46. Pay 5 percent interest on accounts whose balance is greater than average.
 ```mysql
+
 ```
 ---
 ---
 ## Q 47. Update all accounts with balances over 10,00,000 receive 6 percent interest, whereas all others receive 5 percent.
 ```mysql
+
 ```
 ---
 ---
 ## Q 48. Create a view called all_customer consisting of branches and their customer’s name.
 ```mysql
+
 ```
 ---
 ---
 ## Q 49. List the records of view all_customer.
 ```mysql
+
 ```
 ---
 ---
 ## Q 50. Drop all_customer view.
 ```mysql
+
 ```
 ---
 ---
