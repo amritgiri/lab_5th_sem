@@ -477,54 +477,81 @@ select * from depositor;
 ---
 ## Q 43. Delete the records of all accounts with balances below the average at the bank.
 ```mysql
+	delete from account where balance < (select avg(balance) from account);
 
 ```
 ---
 ---
 ## Q 44. Increase all balance by 5 percent.
 ```mysql
+	update account set balance = balance * 1.05;
 
 ```
 ---
 ---
 ## Q 45. Increase balance only to accounts with a balance of 10000 or more by 5 percent.
 ```mysql
+	update account set balance = balance*1.05 where balance>=300000;
 
 ```
 ---
 ---
 ## Q 46. Pay 5 percent interest on accounts whose balance is greater than average.
 ```mysql
+	update account set balance = balance*1.05 where balance > (select avg(balance) from account);
 
 ```
 ---
 ---
 ## Q 47. Update all accounts with balances over 10,00,000 receive 6 percent interest, whereas all others receive 5 percent.
 ```mysql
+	update account set balance=case when balance>650000 then balance*1.06 else balance*1.05 end;
 
 ```
 ---
 ---
 ## Q 48. Create a view called all_customer consisting of branches and their customer’s name.
 ```mysql
-
+	create view all_customer as select c.customer_number,c.customer_name,b.branch_name from customer as c, branch as b, account as a, depositor as d where c.customer_number=d.customer_number and d.account_number=a.account_number and a.branch_number=b.branch_number;
 ```
 ---
 ---
 ## Q 49. List the records of view all_customer.
 ```mysql
-
+	select * from all_customer;
 ```
 ---
 ---
 ## Q 50. Drop all_customer view.
 ```mysql
-
+	drop view all_customer;
 ```
 ---
 ---
 ## Q 51. Perform the Join operation (Natural join, Left join, Right join, and Full join) in the tables account and customer tables.
+---
+## Natural Join
 ```mysql
-
+	select * from account natural join depositor natural join customer;
 ```
+---
+## Left Join
+```mysql
+	select * from account left join depositor on account.account_number=depositor.account_number left join customer on depositor.customer_number=customer.customer_number;
+```
+---
+## Right Join
+```mysql
+	select * from account right join depositor on account.account_number=depositor.account_number right join customer on depositor.customer_number=customer.customer_number;
+```
+---
+## Full Join
+```mysql
+	select * from account full join depositor on account.account_number=depositor.account_number full join customer on depositor.customer_number=customer.customer_number;
+```
+OR
+```mysql
+	(select * from account left join depositor on account.account_number=depositor.account_number left join customer on depositor.customer_number=customer.customer_number) union (select * from account right join depositor on account.account_number=depositor.account_number right join customer on depositor.customer_number=customer.customer_number);
+```
+----
 ---
